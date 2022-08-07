@@ -23,7 +23,10 @@ public class Controller {
     public List<User> getAllUsers(){
         return userService.findAllUsers();
     }
-
+    @GetMapping("get/comments")
+    public List<Comment> getAllComments(){
+        return service.findAllComments();
+    }
     @GetMapping("get/posts")
     public List<Post> getAllPosts(){
         return service.findAllPost();
@@ -56,5 +59,15 @@ public class Controller {
     @DeleteMapping("delete/comment")
     public void deleteComment(@RequestBody Comment comment){
         service.deleteComment(comment);
+    }
+
+    @PutMapping("update/post")
+    public void updatePost(@RequestBody Post post){
+        service.updatePost(post);
+    }
+
+    @PutMapping("update/comment")
+    public void updateComment(@RequestBody Comment comment){
+        service.updateComment(comment);
     }
 }

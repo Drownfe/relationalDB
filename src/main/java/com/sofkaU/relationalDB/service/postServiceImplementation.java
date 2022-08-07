@@ -33,6 +33,18 @@ public class postServiceImplementation implements PostService {
     }
 
     @Override
+    public void updatePost(Post post) {
+        postRepository.save(post);
+    }
+
+    @Override
+    public void updateComment(Comment comment) {
+        commentRepository.save(comment);
+    }
+
+
+
+    @Override
     public void deleteComment(Comment comment) {
         commentRepository.deleteById(comment.getId());
     }
@@ -51,5 +63,10 @@ public class postServiceImplementation implements PostService {
     @Override
     public List<Post> findAllPost() {
         return postRepository.findAll();
+    }
+
+    @Override
+    public List<Comment> findAllComments() {
+        return commentRepository.findAll();
     }
 }
