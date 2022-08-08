@@ -14,7 +14,7 @@ public class Post {
     private Long id;
     private String title;
     private String message;
-    //private Integer numberOfLikes;
+    private Integer numberOfLikes;
     //private List<User> userLikes;
 
     @OneToMany(
@@ -27,6 +27,7 @@ public class Post {
         this.comments.add(comment);
         return this;
     }
+
 
 
 }

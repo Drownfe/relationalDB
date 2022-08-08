@@ -12,7 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/")
-public class Controller {
+@CrossOrigin("*")
+public class PostController {
     @Autowired
     private PostService service;
 
@@ -65,6 +66,7 @@ public class Controller {
     public void updatePost(@RequestBody Post post){
         service.updatePost(post);
     }
+
 
     @PutMapping("update/comment")
     public void updateComment(@RequestBody Comment comment){
