@@ -1,75 +1,61 @@
 package com.sofkaU.relationalDB.controller;
 
+import com.sofkaU.relationalDB.dto.CommentDTO;
+import com.sofkaU.relationalDB.dto.PostDTO;
 import com.sofkaU.relationalDB.entity.Comment;
 import com.sofkaU.relationalDB.entity.Post;
-import com.sofkaU.relationalDB.entity.User;
-import com.sofkaU.relationalDB.service.PostService;
-import com.sofkaU.relationalDB.service.UserService;
+import com.sofkaU.relationalDB.service.CommentServiceImplementation;
+import com.sofkaU.relationalDB.service.PostServiceImplementation;
+import com.sofkaU.relationalDB.service.UserLikeServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api/v1/")
 @CrossOrigin("*")
 public class PostController {
     @Autowired
-    private PostService service;
-
+    private PostServiceImplementation postService;
     @Autowired
-    private UserService userService;
+    private CommentServiceImplementation commentService;
+    @Autowired
+    private UserLikeServiceImplementation userLikeService;
 
-    @GetMapping("get/users")
-    public List<User> getAllUsers(){
-        return userService.findAllUsers();
-    }
-    @GetMapping("get/comments")
-    public List<Comment> getAllComments(){
-        return service.findAllComments();
-    }
-    @GetMapping("get/posts")
-    public List<Post> getAllPosts(){
-        return service.findAllPost();
-    }
+    @GetMapping("get/all/post")
 
+    public List<PostDTO> getAllPost(){
+        return postService.getAllPost();
+    }
     @PostMapping("create/post")
-    public Post createPost(@RequestBody Post post){
-        return service.createPost(post);
-    }
 
+    public PostDTO createPost(@RequestBody PostDTO postDTO){
+        return postService.createPost(postDTO);
+    }
     @PostMapping("create/comment")
-    public Post createComment(@RequestBody Comment comment){
-        return service.createComment(comment);
+    public CommentDTO createComment(@RequestBody  CommentDTO commentDTO){
+        return commentService.createComment(commentDTO);
     }
 
-    @PostMapping("create/user")
-    public User createUser(@RequestBody User user){
-        return userService.createUser(user);
+    @PutMapping("edit/post")
+    public PostDTO editPost(@RequestBody PostDTO postDTO){
+        return postService.editPost(postDTO);
     }
 
-    @DeleteMapping("delete/user")
-    public void deleteUser(@RequestBody User user){
-        userService.deleteUser(user);
+    @PutMapping("edit/comment")
+    public CommentDTO editComment(@RequestBody CommentDTO commentDTO){
+        return commentService.editComment(commentDTO);
     }
+
     @DeleteMapping("delete/post")
-    public void deletePost(@RequestBody Post post) {
-        service.deletePost(post);
+    public void deletePost(@RequestBody Post post){
+        postService.deletePost(post);
     }
 
     @DeleteMapping("delete/comment")
     public void deleteComment(@RequestBody Comment comment){
-        service.deleteComment(comment);
+        commentService.deleteComment(comment);
     }
 
-    @PutMapping("update/post")
-    public void updatePost(@RequestBody Post post){
-        service.updatePost(post);
-    }
-
-
-    @PutMapping("update/comment")
-    public void updateComment(@RequestBody Comment comment){
-        service.updateComment(comment);
-    }
 }

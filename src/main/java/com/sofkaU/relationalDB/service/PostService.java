@@ -1,19 +1,10 @@
 package com.sofkaU.relationalDB.service;
 
-import com.sofkaU.relationalDB.entity.Comment;
+import com.sofkaU.relationalDB.dto.PostDTO;
 import com.sofkaU.relationalDB.entity.Post;
-import java.util.List;
 
 public interface PostService {
-    Post createPost(Post post);
-    Post createComment(Comment comment);
-
-    void updatePost(Post post);
-    void updateComment(Comment comment);
-    void deleteComment(Comment comment);
-    void deletePost(Post post);
-
-    List<Post> findAllPost();
-
-    List<Comment> findAllComments();
+    PostDTO createPost (PostDTO postDTO);
+    PostDTO editPost (PostDTO postDTO);
+    void deletePost (Post post);
 }

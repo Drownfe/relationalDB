@@ -1,33 +1,40 @@
 package com.sofkaU.relationalDB.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "Post")
+@Entity
 @Table(name = "post")
+@NoArgsConstructor
 @Data
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String title;
-    private String message;
-    private Integer numberOfLikes;
-    //private List<User> userLikes;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_post", nullable = false)
+    private Integer id;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
+    @Column(name = "title", nullable = false, length = 45)
+    private String title;
+
+    @Column(name = "content", nullable = false)
+    private String content;
+
+    @Column(name = "number_of_likes")
+    private Integer numberOfLikes;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "postIdPost")
     private List<Comment> comments = new ArrayList<>();
 
-    public Post addComment(Comment comment){
-        this.comments.add(comment);
-        return this;
-    }
-
-
+    @ManyToMany
+    @JoinTable(name = "post_has_user_like",
+            joinColumns = @JoinColumn(name = "post_id_post"),
+            inverseJoinColumns = @JoinColumn(name = "user_like_iduser_like"))
+    private List<UserLike> userLikes = new ArrayList<>();
 
 }
